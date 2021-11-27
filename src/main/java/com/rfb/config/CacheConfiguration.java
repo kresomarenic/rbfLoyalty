@@ -2,6 +2,7 @@ package com.rfb.config;
 
 import java.time.Duration;
 
+import javax.cache.CacheManager;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
 
@@ -36,7 +37,7 @@ public class CacheConfiguration {
     }
 
     @Bean
-    public HibernatePropertiesCustomizer hibernatePropertiesCustomizer(javax.cache.CacheManager cacheManager) {
+    public HibernatePropertiesCustomizer hibernatePropertiesCustomizer(CacheManager cacheManager) {
         return hibernateProperties -> hibernateProperties.put(ConfigSettings.CACHE_MANAGER, cacheManager);
     }
 
@@ -50,6 +51,12 @@ public class CacheConfiguration {
             createCache(cm, com.rfb.domain.User.class.getName() + ".authorities");
             createCache(cm, com.rfb.domain.PersistentToken.class.getName());
             createCache(cm, com.rfb.domain.User.class.getName() + ".persistentTokens");
+            createCache(cm, com.rfb.domain.RfbLocation.class.getName());
+            createCache(cm, com.rfb.domain.RfbLocation.class.getName() + ".rfbEvents");
+            createCache(cm, com.rfb.domain.RfbEvent.class.getName());
+            createCache(cm, com.rfb.domain.RfbEvent.class.getName() + ".rfbEventAttendances");
+            createCache(cm, com.rfb.domain.RfbEventAttendance.class.getName());
+            createCache(cm, com.rfb.domain.RfbUser.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
